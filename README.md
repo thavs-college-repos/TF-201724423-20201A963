@@ -1,5 +1,4 @@
-# TF-U201724423
-Complejidad Algorítmica | Trabajo Final
+# Complejidad Algorítmica | Trabajo Final
 
 ## Enunciado
 Construir nuestro propio “Waze”, es decir un sistema que nos permita encontrar la ruta más
