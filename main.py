@@ -1,13 +1,9 @@
-import csv
+from src.app import index
 
-result = []
-file = open("data\\Lima-calles.csv")
-reader = csv.reader(file, delimiter=';')
-for row in reader:
-    print(row)
 
-# with open('data\Lima-calles.csv', newline='') as File:
-#     reader = csv.DictReader(File)
-#     for row in reader:
-#         result.append(row)
-#     print(result)
+def main() -> None:
+    index()
+
+
+if __name__ == '__main__':
+    main()
