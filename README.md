@@ -49,3 +49,26 @@ am, el tráfico en ciertas calles será bajo, por lo que el peso de las aristas
 correspondientes, será un valor pequeño también. Mientras que si son las 7:00 pm, el 
 tráfico en dichas calles será alto, por lo que el peso de las aristas, será alto. Queda a
 criterio de cada grupo cómo se diseña e implementa dicho factor de tráfico.
+
+### Hito 2:
+* Actividades relacionadas a agregar información adicional al grafo como coordenadas
+de intersecciones, información de tráfico por hora de calles o segmentos de calle.
+* Actividades de implementación de algoritmo de cálculo de peso de arista en función
+de su longitud y factor de tráfico calculado.
+* Actividades de implementación de algoritmos para actualizar pesos de aristas en
+función a la hora del día.
+
+### Hito 3:
+* Actividades de implementación de algoritmos para calcular la ruta más corta y 2 rutas
+alternativas.
+
+### Hito 4:
+* Actividades de implementación de interfaz de usuario.
+* Actividades de implementación de visualización del mapa y las rutas usando su
+implementación de grafo y algoritmos.
+
+### Hito final:
+* Actividades finales de la aplicación, corrección de errores y puesta a punto.
+* Finalización de las conclusiones del informe.
+* Elaboración de un video de mínimo 3 minutos y máximo 8, el cual deberá ser subido
+a una plataforma online compartido por URL. Al repositorio se deberá agregar un
