@@ -1,15 +1,26 @@
 import pandas as pd
 from pandas import read_csv
+import csv
 
 calles_file = "data/Lima-calles.csv"
 intersection_file = "data/Lima-intersecciones.csv"
 
+columns = ['id', 'name', 'intersection_count']
+
 
 def calles():
-    columns = ['id', 'name', 'intersection_count']
     calles_df = read_csv(calles_file, sep=";", header=None, names=columns)
     # print(calles_df)
     return calles_df
+
+
+
+# read csv file calles_file  colum 'Plaza 2 de Mayo' and save in a list
+def calles_list():
+    calles_df = read_csv(calles_file, sep=";", header=None, names=columns)
+    calles_list = calles_df['name'].tolist()
+    return calles_list
+
 
 
 def intersc():
