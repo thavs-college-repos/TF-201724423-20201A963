@@ -28,11 +28,12 @@ def generar_caminos(a, b, map_widget):
     # buscar camino en df de calles e intersecciones
     
     # modifico el mapa lista de duplas de latitudes y longitudes
-    
-    map_widget.set_marker(35.6762, 139.6503, text="Tokyo")   
-    map_widget.set_zoom(12) 
+
     pass
-    
+
+def btn_detele_path(map_widget):
+
+    pass
     
 
 def main() -> None:
@@ -45,26 +46,35 @@ def main() -> None:
     main_title = ctk.CTkLabel(text="Tkinter MapView", text_font=("Arial", 30))
     main_title.pack()
 
+    init_g_label = ctk.CTkLabel(text="Hora", text_font=("Arial", 20))
+    init_g_label.place(x=12, y=590)
+
     init_g_label = ctk.CTkLabel(text="Inicio", text_font=("Arial", 20))
-    init_g_label.place(x=172, y=590)
+    init_g_label.place(x=198, y=590)
 
     final_g_label = ctk.CTkLabel(text="Destino", text_font=("Arial", 20))
-    final_g_label.place(x=382, y=590)
+    final_g_label.place(x=392, y=590)
 
     def combobox_callback(choice):
         print("combobox drop clicked:", choice)
+
+    combo_hrs = ctk.CTkComboBox(
+        values=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
+        command=combobox_callback
+    )
+    combo_hrs.place(x=12, y=640)
 
     combo_init = ctk.CTkComboBox(
         values=calles_list(),
         command=combobox_callback
     )
-    combo_init.place(x=172, y=640)
+    combo_init.place(x=198, y=640)
 
     combo_final = ctk.CTkComboBox(
         values=calles_list(),
         command=combobox_callback
     )
-    combo_final.place(x=382, y=640)
+    combo_final.place(x=392, y=640)
 
     label_map = tk.LabelFrame(root)
     label_map.pack(pady=20)
@@ -87,15 +97,8 @@ def main() -> None:
     def polygon_click(polygon):
         print(f"Polygon clicked: {polygon.name}")
 
-    marker = map_widget.set_position(-12.0573852, -77.0161867, marker=True)
+    marker = map_widget.set_position(-12.0573852, -77.0161867)
     map_widget.set_zoom(8)
-
-    path_1 = map_widget.set_path([(-12.0602391, -77.0411635), (-12.0593158, -77.0311213), (-12.0573852, -77.0161867)],
-                                       # fill_color=None,
-                                       color="red",
-                                       #border_width=9,
-                                       command=polygon_click,
-                                       name="Lima")
 
     # return map_widget.set_position(19.4, -99.13)
 
@@ -107,9 +110,16 @@ def main() -> None:
         text_font=("Arial", 20),
         command=lambda: generar_caminos(combo_final.get(), combo_init.get(), map_widget)
     )
-    
-    
-    btn_generate.place(x=600, y=610)
+
+    btn_delete = ctk.CTkButton(
+        text="Eliminar",
+        text_font=("Arial", 20),
+        command=btn_detele_path(map_widget)
+    )
+
+
+    btn_delete.place(x=650, y=648)
+    btn_generate.place(x=650, y=580)
     
 
     root.mainloop()
