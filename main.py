@@ -2,8 +2,38 @@ import tkinter as tk
 import tkintermapview as tkmapv
 import plotly.graph_objects as go
 from src.data import calles_list
+from find_path import find_path
 import customtkinter as ctk
 
+
+def generar_caminos(a, b, map_widget):
+    # Llamar funcion con dos caminos retornas lista de id de calles
+    print( a, b )
+    (roads, paths) = find_path(int(a), int(b))
+    
+    #print path 
+    for road in roads:
+        
+        crr_road = paths[paths['id'] == road[0]]['combined'].values[0]
+        
+
+        path_1 = map_widget.set_path(crr_road,
+                                       color= "blue" if road[1] < 5 else "red",
+                                       #border_width=9,
+                                       name="Lima")
+    
+    if roads is None:
+        return None
+    
+    # buscar camino en df de calles e intersecciones
+    
+    # modifico el mapa lista de duplas de latitudes y longitudes
+    
+    map_widget.set_marker(35.6762, 139.6503, text="Tokyo")   
+    map_widget.set_zoom(12) 
+    pass
+    
+    
 
 def main() -> None:
     ctk.set_appearance_mode("System")
@@ -57,12 +87,12 @@ def main() -> None:
     def polygon_click(polygon):
         print(f"Polygon clicked: {polygon.name}")
 
-    switzerland_marker = map_widget.set_position(-12.0573852, -77.0161867, marker=True)
+    marker = map_widget.set_position(-12.0573852, -77.0161867, marker=True)
     map_widget.set_zoom(8)
 
-    polygon_1 = map_widget.set_polygon([(-12.0602391, -77.0411635), (-12.0593158, -77.0311213), (-12.0573852, -77.0161867)],
+    path_1 = map_widget.set_path([(-12.0602391, -77.0411635), (-12.0593158, -77.0311213), (-12.0573852, -77.0161867)],
                                        # fill_color=None,
-                                       # outline_color="red",
+                                       color="red",
                                        #border_width=9,
                                        command=polygon_click,
                                        name="Lima")
@@ -72,8 +102,15 @@ def main() -> None:
     # map_widget.set_address('Plaza 2 de Mayo, Lima , Peru')
     map_widget.set_zoom(20)
 
-    btn_generate = ctk.CTkButton(text="Generar", text_font=("Arial", 20))
+    btn_generate = ctk.CTkButton(
+        text="Generar", 
+        text_font=("Arial", 20),
+        command=lambda: generar_caminos(combo_final.get(), combo_init.get(), map_widget)
+    )
+    
+    
     btn_generate.place(x=600, y=610)
+    
 
     root.mainloop()
 
