@@ -6,24 +6,26 @@ from find_path import find_path
 import customtkinter as ctk
 
 
-def generar_caminos(a, b, map_widget):
+def generar_caminos(hora, a, b, map_widget):
     # Llamar funcion con dos caminos retornas lista de id de calles
-    print( a, b )
-    (roads, paths) = find_path(int(a), int(b))
+    (roads, paths) = find_path(hora, int(a), int(b))
     
+    colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black']
     #print path 
-    for road in roads:
-        
-        crr_road = paths[paths['id'] == road[0]]['combined'].values[0]
-        
-
-        path_1 = map_widget.set_path(crr_road,
-                                       color= "blue" if road[1] < 5 else "red",
-                                       #border_width=9,
-                                       name="Lima")
     
     if roads is None:
         return None
+    
+    for road in roads:
+        crr_road = list(paths[paths['id'] == road[0]]['combined'].values[0])
+        path_1 = map_widget.set_path(crr_road,
+                                       color= colors[hora % len(colors)],
+                                       #border_width=9,
+                                       name="Lima")
+        
+        
+    marker = map_widget.set_position(list(paths.combined.values[0])[0][0], list(paths.combined.values[0])[0][1])
+
     
     # buscar camino en df de calles e intersecciones
     
@@ -59,7 +61,7 @@ def main() -> None:
         print("combobox drop clicked:", choice)
 
     combo_hrs = ctk.CTkComboBox(
-        values=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
+        values= list(map(str, range(24))),
         command=combobox_callback
     )
     combo_hrs.place(x=12, y=640)
@@ -98,17 +100,16 @@ def main() -> None:
         print(f"Polygon clicked: {polygon.name}")
 
     marker = map_widget.set_position(-12.0573852, -77.0161867)
-    map_widget.set_zoom(8)
 
     # return map_widget.set_position(19.4, -99.13)
 
     # map_widget.set_address('Plaza 2 de Mayo, Lima , Peru')
-    map_widget.set_zoom(20)
+    map_widget.set_zoom(14)
 
     btn_generate = ctk.CTkButton(
         text="Generar", 
         text_font=("Arial", 20),
-        command=lambda: generar_caminos(combo_final.get(), combo_init.get(), map_widget)
+        command=lambda: generar_caminos(int(combo_hrs.get()), combo_final.get(), combo_init.get(), map_widget)
     )
 
     btn_delete = ctk.CTkButton(

@@ -1,5 +1,5 @@
 from src.data import trafico
-from path import lo_siento
+from path import generar_caminos
 from collections import defaultdict
 
 # Crear list de adjacencya en grafo y crear Graph en main() 
@@ -74,14 +74,14 @@ class Graph:
     
 
 
-def find_path(a, b):
+def find_path(h, a, b):
     """df = trafico()
     print (df.head())
     print( df.columns )
     print( df.dtypes )"""
     
     
-    (df, paths) = lo_siento()
+    (df, paths) = generar_caminos(h)
         
     print( a, b )
     
@@ -91,7 +91,7 @@ def find_path(a, b):
         
         for i, p in enumerate(row["paths"]):  
             #print(row['id'], p, end="   ")  
-                adjency_list[int(row['id'])].append((int(p), int((row['factor_trafico']) + 1) * (i % 5 + 1)))
+                adjency_list[int(row['id'])].append((int(p), row['factor_trafico'] + 1))
 
         #print()
 
